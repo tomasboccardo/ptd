@@ -1,4 +1,4 @@
-from time import sleep
+import traceback
 from ptd.app import PtdInteractiveApp
 import logging
 
@@ -16,4 +16,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as e:
+        traceback.print_exc()
+        logger.error(str(e))
+        raise e

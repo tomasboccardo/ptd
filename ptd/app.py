@@ -1,4 +1,6 @@
 import logging
+
+from ptd import config
 from ptd.view.drawer import ConsoleViewDrawer
 from ptd.controller.keyboard import KeyboardController
 
@@ -15,10 +17,18 @@ class PtdInteractiveApp(object):
         return self
 
     def _setup_handlers(self, controller):
-        @controller.handler(ord('q'))
-        def exit_handler(input_event):
+        @controller.handler(config.exit_key)
+        def exit_handler():
             logger.info('Exit sequence started')
             self.looping = False
+
+        @controller.handler(config.power_key)
+        def power_handler():
+            self.window.enable_power_mode()
+
+        @controller.handler(config.resize_event)
+        def resize_handler():
+            self.window.on_resize()
 
     def _get_input(self):
         return self.window.read_input()

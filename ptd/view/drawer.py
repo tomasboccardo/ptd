@@ -1,7 +1,6 @@
 import logging
 import curses
 
-
 logger = logging.getLogger('ptd')
 
 
@@ -15,20 +14,33 @@ class ConsoleViewDrawer(object):
         curses.cbreak()
         # Ask curses to handle special keys
         self.stdscr.keypad(1)
-        self._on_resize()
+        self.power_mode = False
+        self.height = 0
+        self.width = 0
+        self.set_size()
 
     def read_input(self):
         return self.stdscr.getch()
 
-    def print_line(self, text, line):
+    def clear_line(self, line):
         self.stdscr.move(line, 0)
         self.stdscr.clrtoeol()
+
+    def print_line(self, text, line):
         self.stdscr.addstr(line, 0, text)
 
-    def _on_resize(self):
+    def set_size(self):
         self.height, self.width = self.stdscr.getmaxyx()
         logger.debug('Window size {}x{}'.format(self.width, self.height))
         self.stdscr.hline(self.height - 2, 0, '_', self.width - 1)
+
+    def on_resize(self):
+        prev_height = self.height
+        self.set_size()
+        if self.height > prev_height:
+            self.clear_line(prev_height - 2)
+
+        self.refresh()
 
     def refresh(self):
         self.stdscr.refresh()
@@ -40,3 +52,8 @@ class ConsoleViewDrawer(object):
         self.stdscr.keypad(0)
         # End curses app
         curses.endwin()
+
+    def enable_power_mode(self):
+        curses.echo()
+        self.power_mode = False
+        pass
