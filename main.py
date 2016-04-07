@@ -1,7 +1,4 @@
 import traceback
-
-import sys
-
 from ptd.app import PtdInteractiveApp
 import logging
 

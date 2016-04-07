@@ -3,15 +3,19 @@ import logging
 from ptd import config
 from ptd.view.drawer import ConsoleViewDrawer
 from ptd.controller.keyboard import KeyboardController
-
+from ptd.view.input_line import InputTextLine
 
 logger = logging.getLogger('ptd')
 
 
 class PtdInteractiveApp(object):
-    def __enter__(self):
+    def __init__(self):
         self.looping = True
+        self.power_mode = False
+
+    def __enter__(self):
         self.window = ConsoleViewDrawer()
+        self.input_line = InputTextLine(self.window, self.window.height - 1, 0, ':', '_')
         self.controller = KeyboardController()
         self._setup_handlers(self.controller)
         return self
@@ -23,26 +27,32 @@ class PtdInteractiveApp(object):
 
         @controller.handler(config.power_key)
         def power_handler(value):
-            self.window.enable_power_mode()
+            self.activate_power_mode()
 
         @controller.handler(config.esc_key)
         @controller.handler(config.enter_key)
         def enter_handler(value):
             if value == config.enter_key:
                 logger.debug('You press enter')
-            self.window.disable_power_mode()
+            self.deactivate_power_mode()
 
         @controller.handler(config.resize_event)
         def resize_handler(value):
             self.window.on_resize()
+            self.input_line.on_resize()
+            self.window.refresh()
 
-        @controller.handler(config.backspace_key)
-        def write_handler(value):
-            self.window.remove_last()
+    def activate_power_mode(self):
+        if self.power_mode:
+            return
+        self.power_mode = True
+        self.controller.setup_input(self.input_line)
 
-        @controller.handler()
-        def write_handler(value):
-            self.window.write_char(chr(value))
+    def deactivate_power_mode(self):
+        if not self.power_mode:
+            return
+        self.power_mode = False
+        self.input_line.erase()
 
     def _get_input(self):
         return self.window.read_input()

@@ -41,42 +41,8 @@ class ConsoleViewDrawer(object):
         if self.height > prev_height:
             self.clear_line(prev_height - 2)
 
-        self.refresh()
-
     def refresh(self):
         self.stdscr.refresh()
-
-    def write_char(self, char):
-        if not self.power_mode:
-            return
-        y, x = self.stdscr.getyx()
-        max_y, max_x = self.stdscr.getmaxyx()
-        if x >= max_x:
-            return
-        self.stdscr.addch(y, x, char)
-        self.stdscr.addch(y, x + 1, '_', curses.A_BLINK)
-        self.stdscr.move(y, x + 1)
-
-    def remove_last(self):
-        if not self.power_mode:
-            return
-        y, x = self.stdscr.getyx()
-        if x - 1 < 0:
-            return
-        self.stdscr.addch(y, x, ' ')
-        self.stdscr.addch(y, x - 1, '_', curses.A_BLINK)
-        self.stdscr.move(y, x - 1)
-
-    def enable_power_mode(self):
-        self.power_mode = True
-        self.stdscr.addch(self.height - 1, 0, ':')
-        self.stdscr.addch(self.height - 1, 1, '_', curses.A_BLINK)
-        self.stdscr.move(self.height - 1, 1)
-        self.refresh()
-
-    def disable_power_mode(self):
-        self.power_mode = False
-        self.clear_line(self.height - 1)
 
     def __del__(self):
         # Revert all initialized configurations

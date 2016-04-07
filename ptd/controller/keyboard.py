@@ -1,4 +1,5 @@
 import logging
+from ptd import config
 
 logger = logging.getLogger('ptd')
 
@@ -16,6 +17,15 @@ class KeyboardController(object):
                 self.handlers[ev] = fn
             return fn
         return decorator
+
+    def setup_input(self, input_line):
+        @self.handler()
+        def write_handler(value):
+            input_line.write_char(chr(value))
+
+        @self.handler(config.backspace_key)
+        def backspace_handler(value):
+            input_line.remove_last()
 
     def trigger_event(self, event, input_ev):
         handler = self.handlers.get(event)
