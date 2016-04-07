@@ -17,16 +17,20 @@ class ConsoleViewDrawer(object):
         self.stdscr.keypad(1)
         self._on_resize()
 
+    def read_input(self):
+        return self.stdscr.getch()
+
     def print_line(self, text, line):
         self.stdscr.move(line, 0)
         self.stdscr.clrtoeol()
         self.stdscr.addstr(line, 0, text)
-        self.stdscr.refresh()
 
     def _on_resize(self):
         self.height, self.width = self.stdscr.getmaxyx()
         logger.debug('Window size {}x{}'.format(self.width, self.height))
         self.stdscr.hline(self.height - 2, 0, '_', self.width - 1)
+
+    def refresh(self):
         self.stdscr.refresh()
 
     def __del__(self):
