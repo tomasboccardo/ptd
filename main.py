@@ -1,4 +1,7 @@
 import traceback
+
+import sys
+
 from ptd.app import PtdInteractiveApp
 import logging
 
@@ -19,6 +22,6 @@ if __name__ == '__main__':
     try:
         main()
     except Exception as e:
-        traceback.print_exc()
+        logger.error(traceback.format_exc())
         logger.error(str(e))
         raise e
