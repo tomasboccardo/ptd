@@ -1,5 +1,5 @@
 import logging
-from ptd import config
+from ptd_lib import config
 
 logger = logging.getLogger('ptd')
 

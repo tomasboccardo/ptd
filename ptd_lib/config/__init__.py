@@ -1,5 +1,7 @@
 import curses
 
+version = '0.1'
+
 exit_key = 'q'
 power_key = ':'
 enter_key = 10
