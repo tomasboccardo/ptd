@@ -1,9 +1,9 @@
 import logging
 
-from ptd_lib import config
-from ptd_lib.view.drawer import ConsoleViewDrawer
-from ptd_lib.controller.keyboard import KeyboardController
-from ptd_lib.view.input_line import InputTextLine
+from ptd import config
+from ptd.view.drawer import ConsoleViewDrawer
+from ptd.controller.keyboard import KeyboardController
+from ptd.view.input_line import InputTextLine
 
 logger = logging.getLogger('ptd')
 
