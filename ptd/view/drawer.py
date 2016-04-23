@@ -33,7 +33,6 @@ class ConsoleViewDrawer(object):
     def set_size(self):
         self.height, self.width = self.stdscr.getmaxyx()
         # logger.debug('Window size {}x{}'.format(self.width, self.height))
-        self.stdscr.hline(self.height - 2, 0, '_', self.width)
 
     def on_resize(self):
         prev_height = self.height

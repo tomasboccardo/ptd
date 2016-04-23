@@ -13,7 +13,7 @@ class KeyboardController(object):
             if event is None or event == 'default':
                 self.handlers['default'] = fn
             else:
-                ev = ord(event) if isinstance(event, basestring) else event
+                ev = ord(event) if isinstance(event, str) else event
                 self.handlers[ev] = fn
             return fn
         return decorator
