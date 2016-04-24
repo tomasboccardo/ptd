@@ -1,5 +1,7 @@
 # ptd - Python TODO List
 
+[![Build Status](https://travis-ci.org/tomasboccardo/ptd.svg?branch=develop)](https://travis-ci.org/tomasboccardo/ptd)
+
 ## Requisites
 
     python ------------------> 3.x
