@@ -9,8 +9,8 @@ class PtdCommandFactory(object):
     }
 
     @staticmethod
-    def get_command(command_name):
+    def get_command(app, command_name):
         command_class = PtdCommandFactory.command_dict.get(command_name)
         if command_class is None:
             raise PtdCommandNotFoundException()
-        return command_class()
+        return command_class(app)
