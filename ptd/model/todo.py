@@ -45,6 +45,7 @@ class PtdTodoList(object):
         self.name = name
         self.tasks = []
         self.ids = {}
+        self.next_id = 1
 
     def add_task(self, task):
         if self.ids.get(task.id) is not None:
@@ -56,3 +57,4 @@ class PtdTodoList(object):
         task.callback = priority_change_callback
         heappush(self.tasks, task)
         self.ids[task.id] = task
+        self.next_id = max(self.ids.keys()) + 1
