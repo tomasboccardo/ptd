@@ -1,10 +1,11 @@
 from heapq import heappush, heapify
 
-from ptd.util.exceptions import DuplicatedIdException
+from ptd.util.exceptions import PtdDuplicatedIdException
 
 
 class PtdTask(object):
-    def __init__(self, task_id, name, description='', priority=5, notify_callback=None):
+    def __init__(self, task_id, name, description='',
+                 priority=5, notify_callback=None):
         self.id = task_id
         self.name = name
         self.description = description
@@ -47,7 +48,7 @@ class PtdTodoList(object):
 
     def add_task(self, task):
         if self.ids.get(task.id) is not None:
-            raise DuplicatedIdException()
+            raise PtdDuplicatedIdException()
 
         def priority_change_callback(*args):
             heapify(self.tasks)
@@ -55,4 +56,3 @@ class PtdTodoList(object):
         task.callback = priority_change_callback
         heappush(self.tasks, task)
         self.ids[task.id] = task
-

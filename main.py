@@ -14,9 +14,15 @@ logger.setLevel(logging.DEBUG)
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(prog='ptd', description=strings.args_parser_description)
-    parser.add_argument('command', default='help', help=strings.args_command_help_text)
-    parser.add_argument('--version', action='version', version='%(prog)s {}'.format(config.version))
+    parser = argparse.ArgumentParser(
+        prog='ptd',
+        description=strings.args_parser_description)
+    parser.add_argument('command',
+                        default='help',
+                        help=strings.args_command_help_text)
+    parser.add_argument('--version',
+                        action='version',
+                        version='%(prog)s {}'.format(config.version))
 
     args = parser.parse_args()
     if args.command == 'help':

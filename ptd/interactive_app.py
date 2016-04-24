@@ -15,7 +15,9 @@ class PtdInteractiveApp(object):
 
     def __enter__(self):
         self.window = ConsoleViewDrawer()
-        self.input_line = InputTextLine(self.window, self.window.height - 1, 0, ':', '_')
+        self.input_line = InputTextLine(
+            self.window,
+            self.window.height - 1, 0, ':', '_')
         self.controller = KeyboardController()
         self._setup_handlers(self.controller)
         return self

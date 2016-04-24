@@ -12,7 +12,8 @@ def test_task_creation_default():
 
 
 def test_task_creation_with_description():
-    task = PtdTask(1, 'Test task with description', 'This is an awesome task with description')
+    task = PtdTask(1, 'Test task with description',
+                   'This is an awesome task with description')
 
     assert task.id == 1
     assert task.name == 'Test task with description'
@@ -27,7 +28,8 @@ def test_task_creation_with_description_and_priority():
 
     assert task.id == 1
     assert task.name == 'Test task with description and priority'
-    assert task.description == 'This is an awesome task with description and priority'
+    assert task.description == \
+        'This is an awesome task with description and priority'
     assert task.priority == 2
     assert not task.done
 
@@ -37,6 +39,7 @@ def test_task_mark_as_done():
     task.mark_as_done()
 
     assert task.done
+
 
 def test_task_comparison():
     task_a = PtdTask(1, 'not important', 'not important task', 100)

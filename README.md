@@ -15,6 +15,7 @@ Check [this link](http://virtualenvwrapper.readthedocs.org/en/latest/install.htm
 ### Setting up virtualenv
 
     mkvirtualenv --python=/usr/bin/python3 ptd-env
+    workon ptd-env
     pip install -r requirements.txt
 
 ### Running the project
@@ -27,4 +28,3 @@ Check [this link](http://virtualenvwrapper.readthedocs.org/en/latest/install.htm
 ### Running tests
 
     py.test test/
-

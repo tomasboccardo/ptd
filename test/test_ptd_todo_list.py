@@ -1,7 +1,7 @@
 import pytest
 
 from ptd.model.todo import PtdTodoList, PtdTask
-from ptd.util.exceptions import DuplicatedIdException
+from ptd.util.exceptions import PtdDuplicatedIdException
 
 
 def test_todo_list_creation_default():
@@ -48,7 +48,7 @@ def test_todo_list_adding_more_than_one_task_with_same_id_raises_exception():
 
     todo_list.add_task(task1)
 
-    with pytest.raises(DuplicatedIdException):
+    with pytest.raises(PtdDuplicatedIdException):
         todo_list.add_task(task2)
 
 
